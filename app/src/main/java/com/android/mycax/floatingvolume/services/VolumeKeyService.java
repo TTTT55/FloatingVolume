@@ -19,26 +19,25 @@ import java.util.Objects;
 public class VolumeKeyService extends AccessibilityService {
     public VolumeKeyService() {
     }
-    
+
+    private boolean isExpandedVolumeDialogVisible = false;
     private ExpandedVolumeDialog expandedVolumeDialog;
 
-    @Override
+    /*@Override
     public boolean onKeyEvent(KeyEvent event) {
-
         int action = event.getAction();
         int keyCode = event.getKeyCode();
-        //if (action == KeyEvent.ACTION_UP) {
-            if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
 
-                expandedVolumeDialog = new ExpandedVolumeDialog(this);
-                final DisplayMetrics metrics = new DisplayMetrics();
-                final WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            expandedVolumeDialog = new ExpandedVolumeDialog(this);
+            final DisplayMetrics metrics = new DisplayMetrics();
+            final WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 
 
-                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
                     | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                     | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -47,17 +46,34 @@ public class VolumeKeyService extends AccessibilityService {
                     | WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
 
                 
-                Objects.requireNonNull(windowManager).getDefaultDisplay().getMetrics(metrics);
-                final LayoutInflater inflater = LayoutInflater.from(this);
+            Objects.requireNonNull(windowManager).getDefaultDisplay().getMetrics(metrics);
+            final LayoutInflater inflater = LayoutInflater.from(this);
 
-                expandedVolumeDialog.expandView(inflater, metrics);
+            expandedVolumeDialog.expandView(inflater, metrics);
+            return true;
+        } else {
+            return super.onKeyEvent(event);
+        }
+    }*/
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        int action = event.getAction();
+        int keyCode = event.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if (!isCustomVolumePanelVisible) {
+                    // Show the custom volume panel
+                    expandedVolumeDialog.expandView(inflater, metrics);
+                    isCustomVolumePanelVisible = true;
+                } else {
+                    // Update the existing custom volume panel
+                    expandedVolumeDialog.updateView();
+                }
                 return true;
-            } else {
-                return super.onKeyEvent(event);
-            
-
-        //} else {
-            //return super.onKeyEvent(event);
+            default:
+                return super.dispatchKeyEvent(event);
         }
     }
 
