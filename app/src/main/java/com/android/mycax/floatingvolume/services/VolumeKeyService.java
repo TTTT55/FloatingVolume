@@ -63,10 +63,10 @@ public class VolumeKeyService extends AccessibilityService {
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if (!isCustomVolumePanelVisible) {
+                if (!isExpandedVolumeDialogVisible) {
                     // Show the custom volume panel
                     expandedVolumeDialog.expandView(inflater, metrics);
-                    isCustomVolumePanelVisible = true;
+                    isExpandedVolumeDialogVisible = true;
                 } else {
                     // Update the existing custom volume panel
                     expandedVolumeDialog.updateView();
