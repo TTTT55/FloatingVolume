@@ -12,6 +12,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
+import com.android.mycax.floatingvolume.audio.AudioVolumeObserver;
 import com.android.mycax.floatingvolume.utils.ExpandedVolumeDialog;
 
 import java.util.Objects;
