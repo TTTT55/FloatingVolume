@@ -53,7 +53,7 @@ public class VolumeKeyService extends AccessibilityService {
                 expandedVolumeDialog.expandView(inflater, metrics);
                 return true;
             } else {
-                return super.dispatchKeyEvent(event);
+                return super.onKeyEvent(event);
             
 
         //} else {
