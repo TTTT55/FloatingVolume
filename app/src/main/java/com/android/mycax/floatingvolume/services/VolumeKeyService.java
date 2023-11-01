@@ -84,7 +84,7 @@ public class VolumeKeyService extends AccessibilityService {
                     isExpandedVolumeDialogVisible = true;
                 } else {
                     // Update the existing custom volume panel
-                    expandedVolumeDialog.updateView();
+                    expandedVolumeDialog.onAudioVolumeChanged();
                 }
                 return true;
             default:
