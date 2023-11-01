@@ -25,10 +25,9 @@ public class VolumeKeyService extends AccessibilityService {
     @Override
     public boolean onKeyEvent(KeyEvent event) {
 
-
         int action = event.getAction();
         int keyCode = event.getKeyCode();
-        if (action == KeyEvent.ACTION_UP) {
+        //if (action == KeyEvent.ACTION_UP) {
             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
 
                 expandedVolumeDialog = new ExpandedVolumeDialog(this);
@@ -52,10 +51,13 @@ public class VolumeKeyService extends AccessibilityService {
                 final LayoutInflater inflater = LayoutInflater.from(this);
 
                 expandedVolumeDialog.expandView(inflater, metrics);
-            }
-            return true;
-        } else {
-            return super.onKeyEvent(event);
+                return true;
+            } else {
+                return super.dispatchKeyEvent(event);
+            
+
+        //} else {
+            //return super.onKeyEvent(event);
         }
     }
 
