@@ -23,6 +23,7 @@ public class VolumeKeyService extends AccessibilityService {
 
     private boolean isExpandedVolumeDialogVisible = false;
     private ExpandedVolumeDialog expandedVolumeDialog;
+    private AudioVolumeObserver mAudioVolumeObserver;
 
     /*@Override
     public boolean onKeyEvent(KeyEvent event) {
@@ -85,7 +86,7 @@ public class VolumeKeyService extends AccessibilityService {
                     isExpandedVolumeDialogVisible = true;
                 } else {
                     // Update the existing custom volume panel
-                    expandedVolumeDialog.onAudioVolumeChanged();
+                    expandedVolumeDialog.onAudioVolumeChanged(mAudioVolumeObserver);
                 }
                 return true;
             default:
