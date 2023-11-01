@@ -503,7 +503,11 @@ public class ExpandedVolumeDialog implements View.OnClickListener, SeekBar.OnSee
         mAudioVolumeObserverVoiceCall.unregister();
         mAudioVolumeObserverNotification.unregister();
         mAudioVolumeObserverVoiceCall.unregister();
-        onExpandedVolumeDialogClosed.notifyExpandedVolumeDialogClosed();
+        if (onExpandedVolumeDialogClosed != null) {
+            onExpandedVolumeDialogClosed.notifyExpandedVolumeDialogClosed();
+        } else {
+            // Do nothing
+        }
     }
 
     private void implementTouchListenerToFloatingWidgetView() {
