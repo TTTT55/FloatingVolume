@@ -82,12 +82,11 @@ public class VolumeKeyService extends AccessibilityService {
                     | WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
                     Objects.requireNonNull(windowManager).getDefaultDisplay().getMetrics(metrics);
                     final LayoutInflater inflater = LayoutInflater.from(this);
-                    //expandedVolumeDialog.expandView(inflater, metrics);
-                    expandedVolumeDialog.onAudioVolumeChanged(mAudioVolumeObserver);
+                    expandedVolumeDialog.expandView(inflater, metrics);
                     isExpandedVolumeDialogVisible = true;
                 } else {
                     // Update the existing custom volume panel
-                    expandedVolumeDialog.onAudioVolumeChanged(mAudioVolumeObserver);
+                    expandedVolumeDialog.expandView(inflater, metrics);
                 }
                 return true;
             default:
