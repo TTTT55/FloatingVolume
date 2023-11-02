@@ -86,6 +86,21 @@ public class VolumeKeyService extends AccessibilityService {
                     isExpandedVolumeDialogVisible = true;
                 } else {
                     // Update the existing custom volume panel
+                    expandedVolumeDialog = new ExpandedVolumeDialog(this);
+                    final DisplayMetrics metrics = new DisplayMetrics();
+                    final WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                    | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                    | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                    | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+                    | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
+                    | WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+                    Objects.requireNonNull(windowManager).getDefaultDisplay().getMetrics(metrics);
+                    final LayoutInflater inflater = LayoutInflater.from(this);
                     expandedVolumeDialog.expandView(inflater, metrics);
                 }
                 return true;
