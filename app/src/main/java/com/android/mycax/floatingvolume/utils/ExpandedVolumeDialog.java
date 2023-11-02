@@ -424,6 +424,20 @@ public class ExpandedVolumeDialog implements View.OnClickListener, SeekBar.OnSee
             notificationControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
     }
 
+    public void updateView(int streamType, int volume) {
+        if (streamType == AudioManager.STREAM_RING) {
+            ringerControl.setProgress(volume);
+        } else if (streamType == AudioManager.STREAM_MUSIC) {
+            mediaControl.setProgress(volume);
+        } else if (streamType == AudioManager.STREAM_VOICE_CALL) {
+            voiceCallControl.setProgress(volume);
+        } else if (streamType == AudioManager.STREAM_ALARM) {
+            alarmControl.setProgress(volume);
+        } else if (streamType == AudioManager.STREAM_NOTIFICATION) {
+            notificationControl.setProgress(volume);
+        }
+    }
+
     private void setNewRingerMode() {
         int ringerMode = audioManager.getRingerMode();
         switch (ringerMode) {
