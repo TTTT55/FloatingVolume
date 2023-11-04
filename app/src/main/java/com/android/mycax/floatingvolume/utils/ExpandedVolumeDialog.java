@@ -424,8 +424,8 @@ public class ExpandedVolumeDialog implements View.OnClickListener, SeekBar.OnSee
             notificationControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
     }*/
 
-    @Override
-    public void onAudioVolumeChanged(AudioVolumeObserver audioVolumeObserver, int streamType, int volume) {
+    //@Override
+    public void onAudioVolumeChanged(AudioVolumeObserver audioVolumeObserver/*, int streamType, int volume*/) {
         if (audioVolumeObserver != null) {
             if (streamType == AudioManager.STREAM_RING) {
                 ringerControl.setProgress(volume);
