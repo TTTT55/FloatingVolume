@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
 import com.android.mycax.floatingvolume.utils.ExpandedVolumeDialog;
+import com.android.mycax.floatingvolume.audio.AudioVolumeObserver;
 
 import java.util.Objects;
 
@@ -50,6 +51,7 @@ public class VolumeKeyService extends AccessibilityService {
     }*/
 
     private boolean isExpandedVolumeDialogVisible = false;
+    private AudioVolumeObserver mAudioVolumeObserver;
 
     @Override
     public boolean onKeyEvent(KeyEvent event) {
@@ -77,7 +79,7 @@ public class VolumeKeyService extends AccessibilityService {
                         expandedVolumeDialog.expandView(inflater, metrics);
                         isExpandedVolumeDialogVisible = true;
                     } else {
-                        expandedVolumeDialog.updateView();
+                        expandedVolumeDialog.onAudioVolumeChanged(mAudioVolumeObserver);
                     }
                     return true;
                 default:
