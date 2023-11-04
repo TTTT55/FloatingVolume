@@ -410,7 +410,7 @@ public class ExpandedVolumeDialog implements View.OnClickListener, SeekBar.OnSee
         }
     }
 
-    @Override
+    /*@Override
     public void onAudioVolumeChanged(AudioVolumeObserver audioVolumeObserver) {
         if (audioVolumeObserver.equals(mAudioVolumeObserverRinger))
             ringerControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_RING));
@@ -422,6 +422,23 @@ public class ExpandedVolumeDialog implements View.OnClickListener, SeekBar.OnSee
             alarmControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_ALARM));
         else if (audioVolumeObserver.equals(mAudioVolumeObserverNotification))
             notificationControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
+    }*/
+
+    @Override
+    public void onAudioVolumeChanged(AudioVolumeObserver audioVolumeObserver, int streamType, int volume) {
+        if (audioVolumeObserver != null) {
+            if (streamType == AudioManager.STREAM_RING) {
+                ringerControl.setProgress(volume);
+            } else if (streamType == AudioManager.STREAM_MUSIC) {
+                mediaControl.setProgress(volume);
+            } else if (streamType == AudioManager.STREAM_VOICE_CALL) {
+                voiceCallControl.setProgress(volume);
+            } else if (streamType == AudioManager.STREAM_ALARM) {
+                alarmControl.setProgress(volume);
+            } else if (streamType == AudioManager.STREAM_NOTIFICATION) {
+                notificationControl.setProgress(volume);
+            }
+        }
     }
 
     public void updateView(int streamType, int volume) {
