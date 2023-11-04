@@ -427,17 +427,16 @@ public class ExpandedVolumeDialog implements View.OnClickListener, SeekBar.OnSee
     //@Override
     public void onAudioVolumeChanged(AudioVolumeObserver audioVolumeObserver/*, int streamType, int volume*/) {
         if (audioVolumeObserver != null) {
-            if (streamType == AudioManager.STREAM_RING) {
-                ringerControl.setProgress(volume);
-            } else if (streamType == AudioManager.STREAM_MUSIC) {
-                mediaControl.setProgress(volume);
-            } else if (streamType == AudioManager.STREAM_VOICE_CALL) {
-                voiceCallControl.setProgress(volume);
-            } else if (streamType == AudioManager.STREAM_ALARM) {
-                alarmControl.setProgress(volume);
-            } else if (streamType == AudioManager.STREAM_NOTIFICATION) {
-                notificationControl.setProgress(volume);
-            }
+            if (audioVolumeObserver.equals(mAudioVolumeObserverRinger))
+                ringerControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_RING));
+            else if (audioVolumeObserver.equals(mAudioVolumeObserverMedia))
+                mediaControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+            else if (audioVolumeObserver.equals(mAudioVolumeObserverVoiceCall))
+                voiceCallControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL));
+            else if (audioVolumeObserver.equals(mAudioVolumeObserverAlarm))
+                alarmControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_ALARM));
+            else if (audioVolumeObserver.equals(mAudioVolumeObserverNotification))
+                notificationControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
         }
     }
 
