@@ -425,7 +425,7 @@ public class ExpandedVolumeDialog implements View.OnClickListener, SeekBar.OnSee
     }*/
 
     //@Override
-    public void onAudioVolumeChanged(AudioVolumeObserver audioVolumeObserver/*, int streamType, int volume*/) {
+    public void onAudioVolumeChanged(AudioVolumeObserver audioVolumeObserver, int streamType, int volume) {
         if (audioVolumeObserver != null) {
             if (audioVolumeObserver.equals(mAudioVolumeObserverRinger))
                 ringerControl.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_RING));
