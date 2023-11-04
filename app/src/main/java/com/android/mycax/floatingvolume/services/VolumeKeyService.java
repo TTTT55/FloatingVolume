@@ -23,7 +23,7 @@ public class VolumeKeyService extends AccessibilityService {
 
     private ExpandedVolumeDialog expandedVolumeDialog;
 
-    @Override
+    /*@Override
     public boolean onKeyEvent(KeyEvent event) {
         int action = event.getAction();
         int keyCode = event.getKeyCode();
@@ -48,9 +48,9 @@ public class VolumeKeyService extends AccessibilityService {
             } else {
                 return super.onKeyEvent(event);
         }
-    }
+    }*/
 
-    /*private boolean isExpandedVolumeDialogVisible = false;
+    private boolean isExpandedVolumeDialogVisible = false;
     private AudioVolumeObserver mAudioVolumeObserver;
 
     @Override
@@ -85,7 +85,7 @@ public class VolumeKeyService extends AccessibilityService {
                 default:
                     return super.onKeyEvent(event);
             }
-    }*/
+    }
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
