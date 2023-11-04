@@ -22,7 +22,7 @@ public class VolumeKeyService extends AccessibilityService {
 
     private ExpandedVolumeDialog expandedVolumeDialog;
 
-    @Override
+    /*@Override
     public boolean onKeyEvent(KeyEvent event) {
         int action = event.getAction();
         int keyCode = event.getKeyCode();
@@ -47,6 +47,42 @@ public class VolumeKeyService extends AccessibilityService {
             } else {
                 return super.onKeyEvent(event);
         }
+    }*/
+
+    private boolean isExpandedVolumeDialogVisible = false;
+
+    @Override
+    public boolean onKeyEvent(KeyEvent event) {
+        int action = event.getAction();
+        int keyCode = event.getKeyCode();
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                    if (!isExpandedVolumeDialogVisible) {
+                        expandedVolumeDialog = new ExpandedVolumeDialog(this);
+                        final DisplayMetrics metrics = new DisplayMetrics();
+                        final WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.WRAP_CONTENT,
+                            WindowManager.LayoutParams.WRAP_CONTENT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                            | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                            | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                            | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+                            | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
+                            | WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+                        Objects.requireNonNull(windowManager).getDefaultDisplay().getMetrics(metrics);
+                        final LayoutInflater inflater = LayoutInflater.from(this);
+                        expandedVolumeDialog.expandView(inflater, metrics);
+                        isExpandedVolumeDialogVisible = true;
+                    } else {
+                        expandedVolumeDialog.updateView();
+                    }
+                    return true;
+                default:
+                    return super.onKeyEvent(event);
+            }
     }
 
     @Override
